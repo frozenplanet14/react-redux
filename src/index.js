@@ -4,15 +4,34 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import store from './store';
+import { bindActionCreators } from 'redux';
+import { updateCurrent } from './reducers/todo';
 
-const state = store.getState();
+// const todoChangeHandler = (payload) => store.dispatch(updateCurrent(payload));
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App {...state} />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const actions = bindActionCreators({ updateCurrent }, store.dispatch);
+
+const render = () => {
+  const state = store.getState();
+
+  ReactDOM.render(
+    <React.StrictMode>
+      <App todos={state.todos} currentTodo={state.currentTodo} changeCurrent={actions.updateCurrent} />
+    </React.StrictMode>,
+    document.getElementById('root')
+  );
+};
+
+render();
+
+store.subscribe(render);
+
+/**
+ * Sample code to dispatch action
+ */
+// setTimeout(() => {
+//   store.dispatch({ type: 'ADD_TODO', payload: { id: 4, name: 'Added todo', isComplete: false } });
+// }, 1000);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
