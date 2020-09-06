@@ -1,30 +1,36 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import store from './store';
-import { bindActionCreators } from 'redux';
-import { updateCurrent } from './reducers/todo';
 
 // const todoChangeHandler = (payload) => store.dispatch(updateCurrent(payload));
 
-const actions = bindActionCreators({ updateCurrent }, store.dispatch);
+ReactDOM.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>,
+  document.getElementById('root')
+);
 
-const render = () => {
-  const state = store.getState();
+// const render = () => {
+//   const state = store.getState();
 
-  ReactDOM.render(
-    <React.StrictMode>
-      <App todos={state.todos} currentTodo={state.currentTodo} changeCurrent={actions.updateCurrent} />
-    </React.StrictMode>,
-    document.getElementById('root')
-  );
-};
+//   ReactDOM.render(
+//     <React.StrictMode>
+//       <App todos={state.todos} currentTodo={state.currentTodo} changeCurrent={actions.updateCurrent} />
+//     </React.StrictMode>,
+//     document.getElementById('root')
+//   );
+// };
 
-render();
+// render();
 
-store.subscribe(render);
+// store.subscribe(render);
 
 /**
  * Sample code to dispatch action

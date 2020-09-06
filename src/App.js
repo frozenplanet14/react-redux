@@ -13,12 +13,23 @@ class App extends Component {
           <h2>Welcome to React with Redux</h2>
         </header>
         <div className='Todo-App'>
-          <TodoForm currentTodo={this.props.currentTodo} changeCurrent={this.props.changeCurrent} />
-          <TodoList todos={this.props.todos} />
+          <TodoForm />
+          <TodoList />
         </div>
       </div>
     );
   }
 }
+
+// export default App;
+// const mapStateToProps = (state) => state;
+// // const mapDispatchToProps = (dispatch) => bindActionCreators({ updateCurrent }, dispatch);
+// const mapDispatchToProps = { updateCurrent };
+// const connectedApp = connect(mapStateToProps, mapDispatchToProps)(App);
+// export default connectedApp;
+
+// Simplify the above redux code
+
+// export default connect((state) => state)(App);
 
 export default App;
