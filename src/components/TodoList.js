@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchTodos, updateExistingTodo, deleteTodoById } from '../reducers/todo';
+import { fetchTodos, updateExistingTodo, deleteTodoById, getVisibleTodos } from '../reducers/todo';
 
 const TodoItem = ({ id, isComplete, name, toggleTodo, deleteTodo }) => (
   <li>
@@ -35,6 +35,8 @@ class TodoList extends Component {
   }
 }
 
-export default connect((state) => ({ todos: state.todo.todos }), { fetchTodos, updateExistingTodo, deleteTodoById })(
-  TodoList
-);
+export default connect((state, ownProps) => ({ todos: getVisibleTodos(state.todo.todos, ownProps.filter) }), {
+  fetchTodos,
+  updateExistingTodo,
+  deleteTodoById,
+})(TodoList);
